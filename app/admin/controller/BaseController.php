@@ -13,6 +13,38 @@ use think\Validate;
 abstract class BaseController
 {
     /**
+     * 登录信息
+     * @var array
+     */
+    protected $admin;
+
+    /**
+     * 当前控制器名称
+     * @var string
+     */
+    protected $controller = '';
+
+    /**
+     * 当前方法名称
+     * @var string
+     */
+    protected $action     = '';
+
+    /**
+     * 当前路由uri
+     * @var string
+     */
+    protected $routeUri   = '';
+
+    /**
+     * 登录验证白名单
+     * @var array
+     */
+    protected $allowAllAction = [
+        'passport/login',
+    ];
+
+    /**
      * Request实例
      * @var \think\Request
      */
@@ -29,7 +61,6 @@ abstract class BaseController
      * @var bool
      */
     protected $batchValidate = false;
-
     /**
      * 控制器中间件
      * @var array
@@ -90,5 +121,40 @@ abstract class BaseController
 
         return $v->failException(true)->check($data);
     }
+
+    /**
+     * 返回封装后的API数据到客户端
+     * @param int $code
+     * @param string $msg
+     * @param array $data
+     * @return array
+     */
+    protected function renderJson($code = 0, $msg = '', $data = [])
+    {
+        return compact('code', 'msg', 'data');
+    }
+
+    /**
+     * 返回操作成功json
+     * @param string $msg
+     * @param array $data
+     * @return array
+     */
+    protected function renderSuccess($msg = 'success',$data = [])
+    {
+        return $this->renderJson(1, $msg, $data);
+    }
+
+    /**
+     * 返回操作失败json
+     * @param string $msg
+     * @param array $data
+     * @return array
+     */
+    protected function renderError($msg = 'error', $data = [])
+    {
+        return $this->renderJson(0, $msg, $data);
+    }
+
 
 }
