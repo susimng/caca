@@ -18,18 +18,26 @@ use think\facade\View;
  */
 class Passport extends BaseController
 {
-    public function index()
+    /**
+     * 登录
+     * @return string
+     * @throws \Exception
+     */
+    public function login()
     {
+
         return View::fetch('passport/login');
     }
 
+    /**
+     * 获取验证码
+     * @return \think\Response
+     */
     public function verify(){
         return Captcha::create();
     }
 
-    public function login(){
 
-    }
 
 
 
