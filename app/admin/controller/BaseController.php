@@ -129,31 +129,33 @@ abstract class BaseController
      * @param array $data
      * @return array
      */
-    protected function renderJson($code = 0, $msg = '', $data = [])
+    protected function renderJson($code, $msg = '', $data = [])
     {
         return compact('code', 'msg', 'data');
     }
 
     /**
      * 返回操作成功json
+     * @param int $code
      * @param string $msg
      * @param array $data
      * @return array
      */
-    protected function renderSuccess($msg = 'success',$data = [])
+    protected function renderSuccess($code = 0, $msg = 'success',$data = [])
     {
-        return $this->renderJson(1, $msg, $data);
+        return $this->renderJson($code, $msg, $data);
     }
 
     /**
      * 返回操作失败json
+     * @param int $code
      * @param string $msg
      * @param array $data
      * @return array
      */
-    protected function renderError($msg = 'error', $data = [])
+    protected function renderError($code = 1, $msg = 'error', $data = [])
     {
-        return $this->renderJson(0, $msg, $data);
+        return $this->renderJson($code, $msg, $data);
     }
 
 

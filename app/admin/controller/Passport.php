@@ -25,7 +25,9 @@ class Passport extends BaseController
      */
     public function login()
     {
-
+        if($this->request->isAjax()){
+            return $this->renderSuccess(0,'登录成功',[]);
+        }
         return View::fetch('passport/login');
     }
 
